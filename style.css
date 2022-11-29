@@ -3,29 +3,33 @@
     font-size: 48px;
 }
 
-.notesSection {
+#notesList {
+    display: grid;
+    grid-template-columns: 240px 240px 240px 240px;
     position: absolute;
-    display: flex;
     width: 960px;
-    margin: 50px 0 0 15%;
-    padding: auto;
+    margin: 50px 0 0 12.5%;
+    padding: 40px;
 }
 
 .note {
-    width: 200px;
-    height: 200px;
-    background-color: gray;
-    margin: 40px 0 0 40px;
+    width: 220px;
+    height: 220px;
+    background-color: rgba(0, 0, 0, 0.842);
+    margin: 20px;
+    display: inline;
 }
 
-#firstNote {
-    margin: 40px 0 0 0;
+.note input {
+    color: white;
+    caret-color: white;
+    margin: 12.5%;
 }
-
 .addNoteButton {
-    width: 28px;
-    height: 28px;
-    border-radius: 40px;
-    margin: 40px 0 0 20px;
+    border-radius: 10px;
+    margin: auto 20px 20px 20px;
     padding: 5px;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
 }

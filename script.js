@@ -35,6 +35,5 @@ function saveNotes() {
     if (noteContent != null) {
         console.log(values);
     } else {
-
     }
 }

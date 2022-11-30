@@ -8,7 +8,6 @@ function addNote() {
     var newNote = createNote(`note${noteId}`);
     divToAddNotes.insertBefore(newNote, divToAddNotes.children[0]);
     //console.log(amountOfNotes);
-    saveNotes();
 }
 
 function createNote(noteIndex) {
@@ -23,17 +22,34 @@ function createNote(noteIndex) {
 
 function saveNotes() {
     var values = [];
-    var foo;
+    console.log(values.length)
+    var note;
     var noteContent;
-    var fooTitle;
+    var noteTitle;
     for (i = 1; i <= amountOfNotes.length; i++) {
-        foo = document.getElementById(`${i}`);
+        note = document.getElementById(`${i}`);
         noteContent = foo.children.item(0).value;
-        fooTitle = foo.getAttribute('title');
-        values.push(`${fooTitle} = ${noteContent}`);
+        noteTitle = foo.getAttribute('title');
+        if(noteContent != ''){
+            values.push(`${noteTitle}=${noteContent}`);
+        }
     }
-    if (noteContent != null) {
-        console.log(values);
+    if (values.length != 0) {
+        for (i in values){
+            var valueToSave = values[i].split('=');
+            localStorage.setItem(valueToSave[0], valueToSave[1]);
+            console.log(`${valueToSave[1]} has saved with key ${valueToSave[0]}`);
+        }
     } else {
+        console.log('nothing to save');
+    }
+}
+
+function getData () {
+    for (i in localStorage){
+        var test = localStorage.getItem(i);
+        if(test != null){
+            console.log(localStorage.getItem(i));
+        }
     }
 }

@@ -28,14 +28,14 @@ function saveNotes() {
     var noteTitle;
     for (i = 1; i <= amountOfNotes.length; i++) {
         note = document.getElementById(`${i}`);
-        noteContent = foo.children.item(0).value;
-        noteTitle = foo.getAttribute('title');
-        if(noteContent != ''){
+        noteContent = note.children.item(0).value;
+        noteTitle = note.getAttribute('title');
+        if (noteContent != '') {
             values.push(`${noteTitle}=${noteContent}`);
         }
     }
     if (values.length != 0) {
-        for (i in values){
+        for (i in values) {
             var valueToSave = values[i].split('=');
             localStorage.setItem(valueToSave[0], valueToSave[1]);
             console.log(`${valueToSave[1]} has saved with key ${valueToSave[0]}`);
@@ -45,11 +45,34 @@ function saveNotes() {
     }
 }
 
-function getData () {
-    for (i in localStorage){
-        var test = localStorage.getItem(i);
-        if(test != null){
-            console.log(localStorage.getItem(i));
+function getData() {
+    var note;
+    var storage = localStorage;
+    for (i = 1; i <= localStorage.length; i++) {
+        var dataStored = storage.getItem(i);
+        if (dataStored != null) {
+            addNote();
+        }
+        note = document.getElementById(`${i}`)
+        if(note.id == storage.key(i)){
+            note.children.item(0).value = storage[note.id];
+        } else{
+           var x = tryAgain(note.id, localStorage.key(i));
+           if (x == note.id){
+            note.children.item(0).value = localStorage[i];  
+           }
+        }
+    }
+    function tryAgain(x, y) {
+        if(y = x){
+            console.log(`${y}`);
+            return y;
+        }
+        else {
+            y=+1;
+            console.log('tamo aq');
+             return y + foo(x = x, y= y);
         }
     }
 }
+

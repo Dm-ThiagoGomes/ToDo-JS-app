@@ -10,13 +10,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body onload=getData()>
     <header style="background-color: lightblue;">
         <h1 class="mainTitle">To Do List</h1>
     </header>
     <main>
         <button onclick=saveNotes()>Save Notes</button>
-        <button onclick=foo()>foo</button>
         <ul id="notesList">
             <button class="addNoteButton" onclick=addNote()>Add Note</button>
         </ul>

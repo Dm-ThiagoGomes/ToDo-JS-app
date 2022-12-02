@@ -1,0 +1,36 @@
+.mainTitle {
+    text-align: Center;
+    font-size: 48px;
+}
+
+#notesList {
+    display: grid;
+    grid-template-columns: 240px 240px 240px 240px;
+    position: absolute;
+    width: 960px;
+    margin: 50px 0 0 12.5%;
+    padding: 40px;
+}
+
+.note {
+    width: 220px;
+    height: 220px;
+    background-color: rgba(0, 0, 0, 0.842);
+    margin: 20px;
+    display: inline;
+}
+
+.note input {
+    color: white;
+    caret-color: white;
+    margin: 12.5%;
+}
+
+.addNoteButton {
+    border-radius: 10px;
+    margin: auto 20px 20px 20px;
+    padding: 5px;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+}

@@ -1,33 +1,33 @@
-var ids = [0, 3, 4];
-var amountOfNotes = [];
 var divToAddNotes = document.getElementById('notesList');
-var clickCount = 0;
-var tryTimes = 0;
-var test = [];
+var ids = [];
 var values = [];
-var dataStorage = []
+var idStorage;
 
 function addNote(id = 1) {
     var noteId;
     noteId = checkNoteId(id);
     var newNote = createNote(noteId);
-    divToAddNotes.insertBefore(newNote, divToAddNotes.children[0]);
+    if(noteId == 1){
+        var positionBeforeButton = divToAddNotes.children.length-1;
+        divToAddNotes.insertBefore(newNote, divToAddNotes.children.item(positionBeforeButton));
+    }else{
+        divToAddNotes.insertBefore(newNote, divToAddNotes.children[0]);
+    }
 
-    //console.log(amountOfNotes);
 
     function checkNoteId(id) {
-        for (i = 0; i <= test.length; i++) {
-            if (test[i] == id) {
-                console.log('id used');
+        for (var i = 0; i <= ids.length; i++) {
+            if (ids[i] == id) {    
+                //console.log('id used');
                 id++
             } else {
-                console.log(`${id} unused`)
-                test.push(id);
-                test.sort((a, b) => a - b)
-                i = test.length + 1;
-                // console.log(test);
+                //console.log(`${id} unused`)
+                ids.push(id);
+                ids.sort((a, b) => a - b)
+                i = ids.length + 1;
+                // console.log(ids);
                 return id;
-                //console.log(test[i]);
+                //console.log(ids[i]);
             }
         }
 
@@ -50,10 +50,10 @@ async function saveNotes() {
     var note;
     var noteContent;
     var noteTitle;
-    for (i = 1; i <= test.length; i++) {
-        if (i == test[i - 1]) {
+    for (var i = 1; i <= ids.length; i++) {
+        if (i == ids[i - 1]) {
             note = document.getElementById(`${i}`);
-            noteContent = note.children.item(0).value;
+              noteContent = note.children.item(0).value;
             noteTitle = note.getAttribute('title');
             if (noteContent != '') {
                 values.push(`${noteTitle}=${noteContent}`);
@@ -65,6 +65,7 @@ async function saveNotes() {
                 console.log('foi com nada');
             }
         } else {
+            console.log(i);
             console.log('vai de novo');
         }
     }
@@ -84,48 +85,43 @@ async function saveNotes() {
 }
 
 function deleteNote(id) {
-    var arrayIndex = test.indexOf(id);
-    if (arrayIndex > -1) {
-        test.splice(arrayIndex, 1);
-    }
+    var arrayIndex = idStorage.indexOf(`${id}`);
+    idStorage.splice(arrayIndex, 1);
     localStorage.removeItem(id);
     var note = document.getElementById(`${id}`);
     note.remove();
+    console.log(idStorage);
 }
 
 function getData() {
     var note;
     var storage = localStorage;
-    //console.log(storage);
 
-    for (i = 0; i < localStorage.length; i++) {
-        if(i == 2)
-        console.log(i);
-        var t = Object.keys(storage);
-        //console.log(t[2])
-        dataStorage.push(parseInt(t[i]));
-        dataStorage.sort((a, b) => a - b);
-        console.log(dataStorage);
-    }
-
-    for (i = 1; i <= localStorage.length; i++) {
-        console.log(i);
-        if (i == dataStorage[i - 1]) {
-            console.log(i)
-            var dataStored = storage.getItem(i);
-            console.log(dataStored);
-            addNote(i);
-            // note = document.getElementById(`${i}`)
-            // if (note.id == storage.key(i)) {
-            //     note.children.item(0).value = storage[note.id];
-            // } else {
-            //     var x = tryAgain(note.id, localStorage.key(i));
-            //     if (x == note.id) {
-            //         note.children.item(0).value = localStorage[i];
-            //     }
-            // }
-        } else {
-            console.log('barril aq')
+    for (var i = 0; i <= localStorage.length; i++) {
+       // console.log(localStorage)
+        idStorage = Object.keys(storage);
+        idStorage.sort((a,b) => a-b);
+        console.log(idStorage);
+        //console.log(localStorage.length);
+        //console.log(idStorage[1]);  
+        while (ids.length < localStorage.length) { 
+            var id = parseInt(idStorage[i]);
+            //console.log(localStorage.length)
+            var content = storage.getItem(id);
+            console.log(content);
+            addNote(id);
+            console.log(i);
+                note = document.getElementById(id);
+                if (note.id == storage.key(parseInt(id))) {
+                    note.children.item(0).value = content;
+                 } 
+                else {
+                    var x = tryAgain(note.id, localStorage.key(id));
+                    if (x == note.id) {
+                        note.children.item(0).value = localStorage[id];
+                    }
+                }
+            i++;
         }
     }
 

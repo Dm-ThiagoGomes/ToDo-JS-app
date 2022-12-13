@@ -1,38 +1,53 @@
 var values = [];
 function saveNotes() {
+    var lastIdPosition = ids.length - 1;
+    var lastId = ids[lastIdPosition];
+    var id;
     var note;
     var noteContent;
     var noteTitle;
-    for (var i = 1; i <= ids.length; i++) {
-        if (i == ids[i - 1]) {
-            note = document.getElementById(`${i}`);
-              noteContent = note.children.item(0).value;
-            noteTitle = note.getAttribute('title');
-            if (noteContent != '') {
-                values.push(`${noteTitle}=${noteContent}`);
-                foo = true
-                console.log('foi com tudo');
-            } else {
-                values.push(`${noteTitle}=`)
-                foo = true
-                console.log('foi com nada');
-            }
+    for (var i = 0; i <= lastId; i++) {
+        console.log(i);
+        id = getExistentIds(i = i);
+        console.log(id);
+        note = document.getElementById(`${id}`);
+        noteContent = note.children.item(0).value;
+        noteTitle = note.getAttribute('title');
+        if (noteContent != '') {
+            values.push(`${noteTitle}=${noteContent}`);
+            //console.log('foi com tudo');
         } else {
-            console.log(i);
-            console.log('vai de novo');
+            values.push(`${noteTitle}=`)
+
+            //console.log('foi com nada');
+        }
+
+    }
+
+    for (i in values) {
+        var valueToSave = values[i].split('=');
+        localStorage.setItem(valueToSave[0], valueToSave[1]);
+    }
+
+
+
+    function getExistentIds(i = 1, x = 0) {
+
+        if (i != ids[x] && ids[x] != undefined) {
+            //console.log(`Elemento n encontrado no index ${x}, procurando no próximo index`);
+            x += 1;
+            return getExistentIds(i = i, x);
+        } else if (i != ids[x] && ids[x] == undefined) {
+            //console.log(`o elemento ${i} não foi encontrado no banco, procurando proximo elemento`);
+            i += 1;
+            return getExistentIds(i, x = 0);
+        } else {
+            //console.log(`o elemento ${i} foi encontrado no index ${x}`);
+            return ids[x];
         }
     }
 
-    if (values.length != 0) {
-        for (i in values) {
-            var valueToSave = values[i].split('=');
-            console.log(valueToSave);
-            localStorage.setItem(valueToSave[0], valueToSave[1]);
-            console.log(`${valueToSave[1]} has saved with key ${valueToSave[0]}`);
-        }
-    } else {
-        console.log('nothing to save');
-    }
-
-    console.log(localStorage[1]);
 }
+
+
+

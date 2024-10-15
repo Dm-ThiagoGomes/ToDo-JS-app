@@ -20,7 +20,7 @@
     display: inline;
 }
 
-.note input {
+.note textarea {
     color: white;
     caret-color: white;
     margin: 12.5%;

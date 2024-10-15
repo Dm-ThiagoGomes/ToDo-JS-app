@@ -6,6 +6,7 @@ function saveNotes() {
     var note;
     var noteContent;
     var noteTitle;
+
     for (var i = 0; i <= lastId; i++) {
         console.log(i);
         id = getExistentIds(i = i);
@@ -18,7 +19,6 @@ function saveNotes() {
             //console.log('foi com tudo');
         } else {
             values.push(`${noteTitle}=`)
-
             //console.log('foi com nada');
         }
 

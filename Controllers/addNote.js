@@ -20,7 +20,7 @@ function addNote(id = 1) {
     }
     function createNote(noteIndex) {
         
-        noteInput = "<input type='text' maxLength = 20>";
+        noteInput = "<textarea name='Text' rows='10' cols='20'>";
         var note = document.createElement('li');
         note.className = `note`;
         note.id = noteIndex;
